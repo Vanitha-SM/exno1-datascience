@@ -23,42 +23,89 @@ STEP 6: Use zscore of to remove outliers
 # Coding and Output
 ```
 import pandas as pd
-df=pd.read_csv('/content/SAMPLEIDS.csv')
-print(df)
-df.head(10)
-df.info()
-data.isnull().sum()
+import numpy as np
+import matplotlib.pyplot as plt
+data = pd.read_csv("/content/SAMPLEIDS.csv")
+data.head()
+```
+![image](https://github.com/Vanitha-SM/exno1-datascience/assets/119557985/adeed988-0f22-4477-aa1f-fc0767f58229)
+```
 data = pd.get_dummies(data)
+data.isnull().sum()
+```
+![image](https://github.com/Vanitha-SM/exno1-datascience/assets/119557985/16a9d857-c8ed-412f-b196-7e83fbc27639)
+```
 columns_with_null = data.columns[data.isnull().any()]
-
-### VISUALIZATION:
 import seaborn as sns
 plt.figure(figsize=(10,10))
 sns.barplot(columns_with_null)
 plt.title("NULL VALUES")
 plt.show()
-
-### NULL IMPUTATION
+```
+![image](https://github.com/Vanitha-SM/exno1-datascience/assets/119557985/a140ef65-d5d0-4e5d-bb99-edb3ee4c67db)
+```
 for column in columns_with_null:
     median = data[column].median()  
     data[column].fillna(median, inplace=True)
 data.isnull().sum().sum()
-
+```
+![image](https://github.com/Vanitha-SM/exno1-datascience/assets/119557985/2aa701f0-302e-4f12-acfe-4c08d4891b83)
+# IQR 
+```
+import pandas as pd
+import seaborn as sns
+ir = pd.read_csv("/content/iris (1).csv")
+ir.head()
+```
+![image](https://github.com/Vanitha-SM/exno1-datascience/assets/119557985/b6163966-c207-4ebe-b859-26fc1f31c052)
+```
+ir.describe()
+```
+![image](https://github.com/Vanitha-SM/exno1-datascience/assets/119557985/790ec93f-9b41-45f8-9a3c-8eecbd7b5878)
+```
+sns.boxplot(x='sepal_width',data=ir)
+```
+![image](https://github.com/Vanitha-SM/exno1-datascience/assets/119557985/fa475df8-36e0-4a3d-9d95-895486097f62)
+```
+c1=ir.sepal_width.quantile(0.25)
+c3=ir.sepal_width.quantile(0.75)
+iq=c3-c1
+print(c3)
+```
+![image](https://github.com/Vanitha-SM/exno1-datascience/assets/119557985/7c7de03a-8c19-4629-adee-d2f8ddfc7550)
 
 ```
-![image](https://github.com/Vanitha-SM/exno1-datascience/assets/119557985/c9151899-86da-4aaf-8c49-2f999ed9d71d)
+rid=ir[((ir.sepal_width<(c1-1.5*iq))|(ir.sepal_width>(c3+1.5*iq)))]
+rid['sepal_width']
+```
+![image](https://github.com/Vanitha-SM/exno1-datascience/assets/119557985/c891d33a-411a-43cb-88bb-0614d0cbfbaa)
+```
+delid=ir[~((ir.sepal_width<(c1-1.5*iq))|(ir.sepal_width>(c3+1.5*iq)))]
+delid
+```
+![image](https://github.com/Vanitha-SM/exno1-datascience/assets/119557985/7f10012d-255b-42c7-88fb-7f49c0bf4e3e)
+```
+sns.boxplot(x='sepal_width',data=delid)
+```
+![image](https://github.com/Vanitha-SM/exno1-datascience/assets/119557985/d94161ba-b61b-43aa-b3f7-3c9f352eda00)
+# Z Score
 
-![image](https://github.com/Vanitha-SM/exno1-datascience/assets/119557985/f0d351fb-4ba1-4147-89c6-2ace56643ad9)
+```
+import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
+import scipy.stats as stats
+dataset=pd.read_csv("/content/heights.csv")
+dataset
+```
+![image](https://github.com/Vanitha-SM/exno1-datascience/assets/119557985/f01f125b-7c8e-4fba-9a31-6c09ef3b6974)
+```
+df = pd.read_csv("heights.csv")
+q1 = df['height'].quantile(0.25)
+q2 = df['height'].quantile(0.5)
+q3 = df['height'].quantile(0.75)
 
-![image](https://github.com/Vanitha-SM/exno1-datascience/assets/119557985/4dc389a1-0966-4e26-bec8-3f2c8521cbf0)
-
-
-![image](https://github.com/Vanitha-SM/exno1-datascience/assets/119557985/a33bd6bf-79b1-42e0-bf18-613f96c8b592)
-
-![image](https://github.com/Vanitha-SM/exno1-datascience/assets/119557985/d88f4a69-2ce3-4604-abfb-f4163593f97b)
-
-![image](https://github.com/Vanitha-SM/exno1-datascience/assets/119557985/46a386aa-5991-4236-bd7c-3235c42a7716)
-
+```
 
 # Result
 Thus the given data is read,cleansed and the cleaned data is saved into the file.
