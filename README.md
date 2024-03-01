@@ -107,6 +107,33 @@ q3 = df['height'].quantile(0.75)
 
 ```
 
+```
+iqr = q3-q1
+iqr
+```
+![image](https://github.com/Vanitha-SM/exno1-datascience/assets/119557985/8a9a9dfd-0738-499d-95be-7a258f56424b)
+
+```
+low = q1 - 1.5*iqr
+low
+```
+![image](https://github.com/Vanitha-SM/exno1-datascience/assets/119557985/6d918b46-664f-4910-9574-33fc03f6a372)
+```
+high = q3 + 1.5*iqr
+high
+```
+![image](https://github.com/Vanitha-SM/exno1-datascience/assets/119557985/d3f8ec32-b8ac-436a-a851-9060cdadc505)
+```
+df1 = df[((df['height'] >=low)& (df['height'] <=high))]
+df1
+```
+![image](https://github.com/Vanitha-SM/exno1-datascience/assets/119557985/16fa8456-0ad8-4e94-9a83-87fdfc6b5e80)
+```
+z = np.abs(stats.zscore(df['height']))
+z
+```
+![image](https://github.com/Vanitha-SM/exno1-datascience/assets/119557985/5e6c94d4-04a9-46c6-bc4e-9c6912f96544)
+
 # Result
 Thus the given data is read,cleansed and the cleaned data is saved into the file.
 
