@@ -20,7 +20,11 @@ STEP 5: Remove outliers using IQR
 
 STEP 6: Use zscore of to remove outliers
 
-# Coding and Output
+# Coding and Output-
+```
+Name: Vanitha S
+Register Number: 212222100057
+```
 ```
 import pandas as pd
 import numpy as np
